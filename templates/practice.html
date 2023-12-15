@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/person.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <img src="/static/home.png" /><span class="nav-text">Inno Dukki</span>
+      </div>
+      <div class="secondnav">
+        <div class="secondnavbutton">
+          <img class="selectimg" src="/static/recommendation.png" />추천메뉴
+        </div>
+        <div class="secondnavbutton">
+          <img class="selectimg" src="/static/new.png" />신메뉴
+        </div>
+        <div class="secondnavbutton">
+          <img class="selectimg" src="/static/bowl.png" />덮밥
+        </div>
+        <div class="secondnavbutton">
+          <img class="selectimg" src="/static/series.png" />정식
+        </div>
+      </div>
+      <div class="explainbox">
+        <div class="explain">청장년층을 위한 추천메뉴입니다.</div>
+      </div>
+      <div class="menunav">
+        <div class="menubox">
+          <img
+            id="img1"
+            class="divimage"
+            src="{{ url_for('static', filename=data_list[0]) }}"
+            onclick="chooseImg(this)"
+          />
+        </div>
+        <div class="menubox"></div>
+        <div class="menubox"></div>
+        <div class="menubox"></div>
+        <div class="menubox"></div>
+        <div class="menubox"></div>
+      </div>
+    </div>
+  </body>
+</html>

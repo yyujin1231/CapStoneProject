@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/isPickip.css" rel="stylesheet" id="pagechange" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="topImg"><img src="/static/duck.png" /></div>
+    <div class="centered">
+      <div class="chooseBox" onclick="window.location.href='/end'">
+        <div class="boxText">현금</div>
+        <div class="imgStyle"><img src="/static/money.png" /></div>
+        <div>
+          <a href="{{url_for('end')}}"
+            ><button class="leftbtn">결제하기</button></a
+          >
+        </div>
+      </div>
+      <div class="chooseBox" onclick="window.location.href='/end'">
+        <div class="boxText">카드</div>
+        <div class="imgStyle"><img src="/static/card.png" /></div>
+        <div>
+          <a href="{{url_for('end')}}"
+            ><button class="rightbtn">결제하기</button></a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/caneend.css" rel="stylesheet" id="pagechange" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <img src="/static/duck.png" />
+      <h1>주문이 완료되었습니다.</h1>
+      <h3>다음에 또 이용해주세요</h3>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    let currentSpeech;
+
+    function speak(text, delay) {
+      // 이전 음성 출력이 있으면 중지
+      if (currentSpeech) {
+        currentSpeech.onend = null; // 현재 진행 중인 음성 출력의 onend 이벤트 해제
+        window.speechSynthesis.cancel(); // 현재 음성 출력 취소
+      }
+
+      const speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+
+      setTimeout(function () {
+        currentSpeech = speech;
+        window.speechSynthesis.speak(speech);
+
+        // 음성 출력이 끝나면 currentSpeech 변수를 null로 설정
+        speech.onend = function () {
+          currentSpeech = null;
+        };
+      }, delay);
+    }
+
+    // 페이지 로드 후 자동으로 실행하려면 다음 코드를 추가합니다.
+    window.onload = function () {
+      // "안녕하세요"를 먼저 2초 후에 재생
+      speak("주문이 완료 되었습니다", 0);
+
+      setTimeout(function () {
+        speak("안녕히 가십시오", 0);
+      }, 2000); // Wait 4 seconds before the next part
+    };
+
+    // 페이지를 떠날 때 음성 출력 중지
+    window.onbeforeunload = function () {
+      if (currentSpeech) {
+        window.speechSynthesis.cancel(); // 현재 음성 출력 취소
+      }
+    };
+
+  setTimeout(function () {
+      window.location.href = "/wait";
+    }, 3000); // 10초 후에 /restart로 리디렉션
+  </script>
+</html>

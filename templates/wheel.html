@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/wheel.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="upcontainer">
+        <div class="boxes">
+            <div class="boxes">
+            <iframe width="800" height="390" src="https://www.youtube.com/embed/EYj6g9QGdh8?autoplay=1&mute=1" 
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+             encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          </div>
+          <div class="header">
+            <div class="icon">
+              <img src="/static/home.png" onclick="window.location.href='/wheelstart'" />
+            </div>
+            Inno Dukki
+          </div> 
+    </div>
+    <div class="downcontainer">
+        <div class="clickmenu">
+            <div class="firstbuttondiv button active" onclick="changeimage(); changeMenu(); changeMoney();setActiveButton(this);">
+                <img class="realimg" src="/static/recommendation.png">
+                <h3>추천</h3>
+            </div>
+            <div class="secondbuttondiv button" onclick = "changeNewimage(); changeNewmenu(); changeNewMoney();setActiveButton(this);">
+                <img class="realimg" src="/static/new.png">
+                <h3>신메뉴</h3>
+            </div>
+            <div class="thirdbuttondiv button" onclick="changeBowlimage(); changeBowlmenu(); changeBowlMoney();setActiveButton(this);" >
+                <img class="realimg" src="/static/bowl.png">
+                <h3>덮밥</h3>
+            </div>
+            <div class="fourbuttondiv button" onclick="changeSeriesimage(); changeSeriesmenu(); changeSeriesMoney();setActiveButton(this);" >
+                <img class="realimg" src="/static/series.png">
+                <h3>정식</h3>
+            </div>
+    </div>
+    <div class="explain"><strong>추천 메뉴입니다.</strong></div>
+    <div class="menu" >
+        <div class="first">
+            <img id="img1" class="divimage" src="{{ url_for('static', filename=data_wheel_list[0]) }}" onclick="chooseImg(this)" >
+            <div class="firstitemprice itemprice" id="menutext1"> {{ wheel_menu_list[0] }}  </div>
+            <div class="firstmoneyprice" id="moneytext1"> {{ wheel_money_menu_list[0] }}  </div><strong>원</strong>
+        </div>
+        <div class="second">
+            <img id="img2" class="divimage" src="{{ url_for('static', filename=data_wheel_list[1]) }}" onclick="chooseImg(this)" >
+            <div class="seconditemprice itemprice" id="menutext2"> {{ wheel_menu_list[1] }}  </div>
+            <div class="secondmoneyprice" id="moneytext2"> {{ wheel_money_menu_list[1] }}  </div> <strong>원</strong>
+        </div>
+        <div class="third">
+            <img id="img3" class="divimage" src="{{ url_for('static', filename=data_wheel_list[2]) }}" onclick="chooseImg(this)" >
+            <div class="thirditemprice itemprice" id="menutext3">{{ wheel_menu_list[2] }} </div>
+            <div class="thirdmoneyprice" id="moneytext3">{{ wheel_money_menu_list[2] }} </div> <strong>원</strong>
+        </div>
+        
+        
+    
+        <div class="four">
+            <img id="img4" class="divimage" src="{{ url_for('static', filename=data_wheel_list[3]) }}" onclick="chooseImg(this)" >
+            <div class="firstitemprice itemprice" id="menutext4"> {{ wheel_menu_list[3] }} </div> 
+            <div class="firstmoneyprice" id="moneytext4"> {{ wheel_money_menu_list[3] }} </div> <strong>원</strong>
+        </div>
+        <div class="five">
+            <img id="img5" class="divimage" src="{{ url_for('static', filename=data_wheel_list[4]) }}" onclick="chooseImg(this)" >
+            <div class="seconditemprice itemprice" id="menutext5">{{ wheel_menu_list[4] }}  </div>
+            <div class="secondmoneyprice" id="moneytext5">{{ wheel_money_menu_list[4] }}  </div> <strong>원</strong>
+        </div>
+        <div class="six">
+            <img id="img6" class="divimage" src="{{ url_for('static', filename=data_wheel_list[5]) }}" onclick="chooseImg(this)" >
+            <div class="thirditemprice itemprice" id="menutext6">{{ wheel_menu_list[5] }}   </div>
+            <div class="thirdmoneyprice" id="moneytext6">{{ wheel_money_menu_list[5] }}   </div> <strong>원</strong>
+        </div>
+        
+    </div>
+    <div class="footer">선택메뉴</div>
+    <div class="realmenu">
+        <div id="realfirst"></div>
+        <div id="realsecond"></div> 
+        <div id="realthird"></div> 
+        <div id="realfour"></div> 
+        <div id="realfive"></div> 
+        <div id="realsix"></div> 
+    </div>
+    <div class="order">
+        <table width="40%">
+            <tbody>
+                <tr>
+                    <th width="25%" class="bottom"  >주문 수량</th>
+                    <th width="15%" id="totalCnt"></th>
+                </tr>
+                <tr>
+                    <th width="25%">주문 금액</th>
+                    <th width="15%" id="totalMoney"></th>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <button class="order-btn1" onclick="window.location.href='/wheelstart'" >전체취소</button>
+        <a href="{{url_for('isPickup')}}"><button class="order-btn2">주문하기</button></a>
+    </div>
+    </div>  
+   
+
+
+    </div>
+    
+</body>
+<script>
+    var cnt=0;
+    var money=0;
+    function setActiveButton(element) {
+    // 모든 버튼의 활성화 상태를 제거
+    var buttons = document.querySelectorAll('.button');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+    }
+    // 클릭된 버튼에 활성화 상태 추가
+    element.classList.add('active');
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////
+    function changeimage(){
+        document.getElementById("img1").src="{{ url_for('static', filename=data_wheel_list[0]) }}";
+        document.getElementById("img2").src="{{ url_for('static', filename=data_wheel_list[1]) }}";
+        document.getElementById("img3").src="{{ url_for('static', filename=data_wheel_list[2]) }}";
+        document.getElementById("img4").src="{{ url_for('static', filename=data_wheel_list[3]) }}";
+        document.getElementById("img5").src="{{ url_for('static', filename=data_wheel_list[4]) }}";
+        document.getElementById("img6").src="{{ url_for('static', filename=data_wheel_list[5]) }}";
+        var explainDiv = document.querySelector(".explain");
+      var strongElement = explainDiv.querySelector("strong");
+      strongElement.textContent = "추천 메뉴입니다.";
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////
+    function changeNewimage(){
+        document.getElementById("img1").src="{{ url_for('static', filename=data_new_list[0]) }}";
+        document.getElementById("img2").src="{{ url_for('static', filename=data_new_list[1]) }}";
+        document.getElementById("img3").src="{{ url_for('static', filename=data_new_list[2]) }}";
+        document.getElementById("img4").src="{{ url_for('static', filename=data_new_list[3]) }}";
+        document.getElementById("img5").src="{{ url_for('static', filename=data_new_list[4]) }}";
+        document.getElementById("img6").src="{{ url_for('static', filename=data_new_list[5]) }}";
+        var explainDiv = document.querySelector(".explain");
+      var strongElement = explainDiv.querySelector("strong");
+      strongElement.textContent = "신메뉴입니다.";
+    }
+
+    function changeBowlimage(){
+        document.getElementById("img1").src="{{ url_for('static', filename=data_bowl_list[0]) }}";
+        document.getElementById("img2").src="{{ url_for('static', filename=data_bowl_list[1]) }}";
+        document.getElementById("img3").src="{{ url_for('static', filename=data_bowl_list[2]) }}";
+        document.getElementById("img4").src="{{ url_for('static', filename=data_bowl_list[3]) }}";
+        document.getElementById("img5").src="{{ url_for('static', filename=data_bowl_list[4]) }}";
+        document.getElementById("img6").src="{{ url_for('static', filename=data_bowl_list[5]) }}";
+        var explainDiv = document.querySelector(".explain");
+      var strongElement = explainDiv.querySelector("strong");
+      strongElement.textContent = "덮밥입니다.";
+    }
+    function changeSeriesimage(){
+        document.getElementById("img1").src="{{ url_for('static', filename=data_series_list[0]) }}";
+        document.getElementById("img2").src="{{ url_for('static', filename=data_series_list[1]) }}";
+        document.getElementById("img3").src="{{ url_for('static', filename=data_series_list[2]) }}";
+        document.getElementById("img4").src="{{ url_for('static', filename=data_series_list[3]) }}";
+        document.getElementById("img5").src="{{ url_for('static', filename=data_series_list[4]) }}";
+        document.getElementById("img6").src="{{ url_for('static', filename=data_series_list[5]) }}";
+        var explainDiv = document.querySelector(".explain");
+      var strongElement = explainDiv.querySelector("strong");
+      strongElement.textContent = "정식 시리즈입니다.";
+    }
+
+    function chooseImg(img) {
+        var realfirst = document.getElementById("realfirst");
+        var realsecond = document.getElementById("realsecond");
+        var realthird = document.getElementById("realthird");
+        var realfour = document.getElementById("realfour");
+        var realfive = document.getElementById("realfive");
+        var realsix = document.getElementById("realsix");
+        var totalCnt=document.getElementById("totalCnt");
+        var totalMoney=document.getElementById("totalMoney");
+        var imgCopy = img.cloneNode(true);  
+        var deleteBtn = document.createElement('button');
+        var btnIndex=0;
+        var imgId = img.id;
+        var priceDivId = imgId.replace('img', 'moneytext');
+        var priceDiv = document.getElementById(priceDivId);
+        var price = Number(priceDiv.textContent);
+        deleteBtn.classList.add('delete-btn');
+        deleteBtn.textContent = 'X';
+        deleteBtn.addEventListener('click', function () {
+        const btnIndex=Number(deleteBtn.getAttribute('name'));
+
+        imgCopy.remove();
+        deleteBtn.remove();
+        cnt-=1;
+        money-=price;
+        totalCnt.textContent=cnt;
+        totalMoney.textContent=money +"원";
+        moveImagesForward(btnIndex);// 수정된 부분
+        });
+        cnt+=1;
+        money+=price;
+        totalCnt.textContent=cnt;
+        totalMoney.textContent=money +"원";
+        if(realfirst.innerHTML == ""){
+            realfirst.appendChild(imgCopy);
+            imgCopy.classList.add("slideInFromTop");
+            setTimeout(function() {
+            deleteBtn.setAttribute('name','1');
+            realfirst.appendChild(deleteBtn);
+             }, 450);
+            document.getElementById("realfirst").appendChild(realfirst);
+            
+        }
+        else if(realfirst.innerHTML != "" && realsecond.innerHTML==""){
+            realsecond.appendChild(imgCopy);
+            imgCopy.classList.add("slideInFromTop");
+            setTimeout(function() {
+            deleteBtn.setAttribute('name','2');
+            realsecond.appendChild(deleteBtn);
+             }, 450);
+            document.getElementById("realsecond").appendChild(realsecond);
+            
+        }
+        else if(realsecond.innerHTML != "" && realthird.innerHTML==""){
+            realthird.appendChild(imgCopy);
+            imgCopy.classList.add("slideInFromTop");
+            setTimeout(function() {
+            deleteBtn.setAttribute('name','3');
+            realthird.appendChild(deleteBtn);
+             }, 450);
+            document.getElementById("realthird").appendChild(realthird);       
+        }
+        else if(realthird.innerHTML != "" && realfour.innerHTML==""){
+            realfour.appendChild(imgCopy);
+            imgCopy.classList.add("slideInFromTop");
+            setTimeout(function() {
+            deleteBtn.setAttribute('name','4');
+            realfour.appendChild(deleteBtn);
+             }, 450);
+            document.getElementById("realfour").appendChild(realfour);
+            
+        }
+        else if(realfour.innerHTML != "" && realfive.innerHTML==""){
+            realfive.appendChild(imgCopy);
+            imgCopy.classList.add("slideInFromTop");
+            setTimeout(function() {
+            deleteBtn.setAttribute('name','5');
+            realfive.appendChild(deleteBtn);
+             }, 450);
+            document.getElementById("realfive").appendChild(realfive);
+            
+        }
+        else{
+            realsix.appendChild(imgCopy);
+            imgCopy.classList.add("slideInFromTop");
+            setTimeout(function() {
+            deleteBtn.setAttribute('name','6');
+            realsix.appendChild(deleteBtn);
+             }, 450);
+            document.getElementById("realsix").appendChild(realsix);
+            
+        }
+       function getDeleteBtnIndex(btn) {
+         const allDeleteBtns = document.querySelectorAll(".delete-btn");
+        for (let i = 0; i < allDeleteBtns.length; i++) {
+        if (btn === allDeleteBtns[i]) {
+        return i;
+        }
+        }
+        return -1; // 에러 처리: 해당하는 버튼이 없는 경우
+     }
+
+    const index = Number(deleteBtn.getAttribute('name'));
+    function moveImagesForward(index) {
+    const  containers = [realfirst, realsecond, realthird, realfour, realfive, realsix];
+    for (let i = index; i < containers.length; i++) {
+      const container = containers[i];
+      if (container.innerHTML !== "") {
+        const img = container.querySelector('.divimage');
+        const btn = container.querySelector('.delete-btn');
+        containers[i].innerHTML = "";
+        containers[i - 1].appendChild(img);
+        containers[i - 1].appendChild(btn);
+        btn.setAttribute('name', i);
+
+      }
+    
+    }
+}
+
+}
+    
+
+    //   for (let i = index + 1; i < containers.length; i++) {
+    //     const container = containers[i];
+    //     if(containers.innerHTML =="" ){
+    //       const img = container.getElementsByClassName("divimage");
+    //        const btn = container.getElementsByClassName("delete-btn");
+    //        containers[i - 1].appendchild(img);
+    //     }
+    // }
+
+
+
+    // }
+    // }
+ 
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    var wheel_menu_list = JSON.parse('{{ wheel_menu_list|tojson|safe }}');
+    function changeMenu() {
+     document.getElementById("menutext1").innerHTML = wheel_menu_list[0];
+     document.getElementById("menutext2").innerHTML = wheel_menu_list[1];
+     document.getElementById("menutext3").innerHTML = wheel_menu_list[2];
+     document.getElementById("menutext4").innerHTML = wheel_menu_list[3];
+     document.getElementById("menutext5").innerHTML = wheel_menu_list[4];
+     document.getElementById("menutext6").innerHTML = wheel_menu_list[5];
+     }
+     //////////////////////////////////////////////////////////////////////////////////
+
+    
+    var all_menu_list = JSON.parse('{{ all_menu_list|tojson|safe }}');
+    function changeNewmenu() {
+     document.getElementById("menutext1").innerHTML = all_menu_list[0];
+     document.getElementById("menutext2").innerHTML = all_menu_list[1];
+     document.getElementById("menutext3").innerHTML = all_menu_list[2];
+     document.getElementById("menutext4").innerHTML = all_menu_list[3];
+     document.getElementById("menutext5").innerHTML = all_menu_list[4];
+     document.getElementById("menutext6").innerHTML = all_menu_list[17];
+    }
+
+     var all_menu_list = JSON.parse('{{ all_menu_list|tojson|safe }}');
+    function changeBowlmenu() {
+     document.getElementById("menutext1").innerHTML = all_menu_list[5];
+     document.getElementById("menutext2").innerHTML = all_menu_list[6];
+     document.getElementById("menutext3").innerHTML = all_menu_list[7];
+     document.getElementById("menutext4").innerHTML = all_menu_list[8];
+     document.getElementById("menutext5").innerHTML = all_menu_list[9];
+     document.getElementById("menutext6").innerHTML = all_menu_list[16];
+    }
+
+
+     var all_menu_list = JSON.parse('{{ all_menu_list|tojson|safe }}');
+    function changeSeriesmenu() {
+     document.getElementById("menutext1").innerHTML = all_menu_list[10];
+     document.getElementById("menutext2").innerHTML = all_menu_list[11];
+     document.getElementById("menutext3").innerHTML = all_menu_list[12];
+     document.getElementById("menutext4").innerHTML = all_menu_list[13];
+     document.getElementById("menutext5").innerHTML = all_menu_list[14];
+     document.getElementById("menutext6").innerHTML = all_menu_list[15];
+     }
+
+        ////////////////////////////////////////////////////////////////////////////////
+     /*JSON 문자열의 구문을 분석하고, 그 결과에서 JavaScript 값이나 객체를 생성합니다. */
+     var wheel_money_menu_list = JSON.parse('{{ wheel_money_menu_list|tojson|safe }}');
+     function changeMoney() {
+     document.getElementById("moneytext1").innerHTML = wheel_money_menu_list[0];
+     document.getElementById("moneytext2").innerHTML = wheel_money_menu_list[1];
+     document.getElementById("moneytext3").innerHTML = wheel_money_menu_list[2];
+     document.getElementById("moneytext4").innerHTML = wheel_money_menu_list[3];
+     document.getElementById("moneytext5").innerHTML = wheel_money_menu_list[4];
+     document.getElementById("moneytext6").innerHTML = wheel_money_menu_list[5];
+//      if (document.getElementById("moneytext6").innerHTML === "") {
+//     document.getElementById("moneytext6").style.display = "none";
+//   } else {
+//     document.getElementById("moneytext6").style.display = "block";
+//   }
+   //////////////////////////////////////////////////////////////////////////////////////////
+    
+     }
+
+     var money_menu_list = JSON.parse('{{ money_menu_list|tojson|safe }}');
+     function changeNewMoney() {
+     document.getElementById("moneytext1").innerHTML = money_menu_list[6];
+     document.getElementById("moneytext2").innerHTML = money_menu_list[7];
+     document.getElementById("moneytext3").innerHTML = money_menu_list[8];
+     document.getElementById("moneytext4").innerHTML = money_menu_list[9];
+     document.getElementById("moneytext5").innerHTML = money_menu_list[10];
+     document.getElementById("moneytext6").innerHTML = money_menu_list[23];
+//      if (document.getElementById("moneytext6").innerHTML === "") {
+//     document.getElementById("moneytext6").style.display = "none";
+//   } else {
+//     document.getElementById("moneytext6").style.display = "block";
+//   }
+   
+    
+     }
+
+     var money_menu_list = JSON.parse('{{ money_menu_list|tojson|safe }}');
+     function changeBowlMoney() {
+     document.getElementById("moneytext1").innerHTML = money_menu_list[11];
+     document.getElementById("moneytext2").innerHTML = money_menu_list[12];
+     document.getElementById("moneytext3").innerHTML = money_menu_list[13];
+     document.getElementById("moneytext4").innerHTML = money_menu_list[14];
+     document.getElementById("moneytext5").innerHTML = money_menu_list[15];
+    document.getElementById("moneytext6").innerHTML = money_menu_list[22];
+//     if (document.getElementById("moneytext6").innerHTML === "") {
+//     document.getElementById("moneytext6").style.display = "none";
+//   } else {
+//     document.getElementById("moneytext6").style.display = "block";
+//   }
+  
+    }
+
+     var money_menu_list = JSON.parse('{{ money_menu_list|tojson|safe }}');
+     function changeSeriesMoney() {
+     document.getElementById("moneytext1").innerHTML = money_menu_list[16];
+     document.getElementById("moneytext2").innerHTML = money_menu_list[17];
+     document.getElementById("moneytext3").innerHTML = money_menu_list[18];
+     document.getElementById("moneytext4").innerHTML = money_menu_list[19];
+     document.getElementById("moneytext5").innerHTML = money_menu_list[20];
+     document.getElementById("moneytext6").innerHTML = money_menu_list[21];
+//      if (document.getElementById("moneytext6").innerHTML === "") {
+//     document.getElementById("moneytext6").style.display = "none";
+//   } else {
+//     document.getElementById("moneytext6").style.display = "block";
+//   }
+    
+  
+     }
+
+   
+
+ 
+
+</script> 
+</html>

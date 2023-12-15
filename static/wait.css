@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "배민도현";
+  src: url(BMDOHYEON_ttf.ttf);
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #ec323b;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.duck img {
+  width: 300px; /* 원하는 가로 너비 설정 */
+  height: 300px; /* 세로 높이 자동으로 조절하도록 설정 */
+  margin-top: 10%;
+  display: block; /* 이미지를 블록 요소로 설정 */
+  margin-left: auto; /* 좌우 여백을 자동으로 설정하여 이미지를 가운데 정렬합니다. */
+  margin-right: auto;
+}
+
+.explain {
+  margin-top: 5%;
+  font-family: "배민도현";
+  color: white;
+  font-size: 60px;
+  text-align: center;
+  line-height: 1.8;
+  font-weight: bold;
+}
+
+.startbutton {
+  width: 50%; /* 상대적인 가로 크기 */
+  max-width: 400px; /* 최대 가로 크기 설정 */
+  height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
+  text-align: center; /* 수평 가운데 정렬 */
+  line-height: 100px; /* 텍스트를 수직 가운데 정렬 */
+  border-radius: 50px;
+  font-family: "배민도현";
+  color: #ec323b;
+  font-size: 60px;
+  background-color: white;
+  font-weight: bold;
+  border: 2px solid white;
+  display: block; /* 블록 요소로 설정하여 가로 가운데 정렬을 도와줍니다. */
+  margin: 20px auto 0; /* 좌우 여백을 자동으로 설정하여 가운데 정렬합니다. */
+  letter-spacing: 4px; /* 글자 간격을 2px로 설정 */
+}
+
+.startexplain {
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  margin-top: 5%;
+  font-family: "배민도현";
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/end.css" rel="stylesheet" id="pagechange" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <img src="/static/duck.png" />
+      <h1>주문이 완료되었습니다.</h1>
+      <h3>다음에 또 이용해주세요</h3>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    setTimeout(function () {
+      window.location.href = "/wait";
+    }, 3000); // 10초 후에 /restart로 리디렉션
+  </script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/caneispickup.css" rel="stylesheet" id="pagechange" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="topImg"><img src="/static/duck.png" /></div>
+    <div class="centered">
+      <div class="chooseBox" onclick="window.location.href='/caneend'">
+        <div class="boxText">현금</div>
+        <div class="imgStyle"><img src="/static/money.png" /></div>
+        <div>
+          <button class="leftbtn" onclick="window.location.href='/caneend'">
+            결제하기
+          </button>
+        </div>
+      </div>
+      <div class="chooseBox" onclick="window.location.href='/caneend'">
+        <div class="boxText">카드</div>
+        <div class="imgStyle"><img src="/static/card.png" /></div>
+        <div>
+          <button class="rightbtn" onclick="window.location.href='/caneend'">
+            결제하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let currentSpeech;
+    function speak(text, delay) {
+      if (currentSpeech) {
+        currentSpeech.onend = null; // 현재 진행 중인 음성 출력의 onend 이벤트 해제
+        window.speechSynthesis.cancel(); // 현재 음성 출력 취소
+      }
+
+      const speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+
+      setTimeout(function () {
+        currentSpeech = speech;
+        window.speechSynthesis.speak(speech);
+
+        speech.onend = function () {
+          currentSpeech = null;
+        };
+      }, delay);
+    }
+    window.onload = function () {
+      speak(
+        "현금으로 결제하실 경우는 왼쪽을, 카드로 결제하실 경우는 오른쪽을 눌러주세요",
+        2000
+      );
+    };
+
+    // 페이지를 떠날 때 음성 출력 중지
+    window.onbeforeunload = function () {
+      if (currentSpeech) {
+        window.speechSynthesis.cancel(); // 현재 음성 출력 취소
+      }
+    };
+  </script>
+</html>

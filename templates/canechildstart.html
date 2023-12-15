@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/canechildstart.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="topcontainer">
+      <!-- <iframe width="100%" height="500" src="https://www.youtube.com/embed/syBo0IjgJlM?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+      <img class="topimg" src="/static/tiniping.jpg" />
+    </div>
+    <div class="container">
+      <div class="kiosk">이노덕키</div>
+      <div class="explain">먹는 방법을 선택해봐요!</div>
+    </div>
+    <div class="subcontainer">
+      <button class="box1" onclick="window.location.href='/canechild'"><img class="realimg" src="/static/blindchildin.png" /><span>먹고가기</span></button>
+      <button class="box2" onclick="window.location.href='/canechild'"><img class="realimg" src="/static/blindchildout.png" /><span>포장하기</span></button>
+    </div>
+    <div class="finalcontainer">
+        <div class="selectbox">
+        <button class="select" onclick="window.location.href='/'">기본</button>
+        <button class="select" onclick="window.location.href='/elderstart'">노년층</button>
+        <button class="select" onclick="window.location.href='/childstart'">어린이</button>
+        <button class="select" onclick="window.location.href='/wheelstart'">휠체어 탑승자</button>
+        <button class="select" onclick="window.location.href='/wheelelderstart'">노년층 휠체어 탑승자</button>
+        <button class="select" onclick="window.location.href='/wheelchildstart'">어린이 휠체어 탑승자</button>
+        <button class="select" onclick="window.location.href='/canestart'">시각장애인</button>
+        <button class="select" onclick="window.location.href='/caneelderstart'">노년층 시각 장애인</button>
+        <button class="select" id="changechildcanebutton" onclick="window.location.href='/canechildstart'">어린이 시각 장애인</button>
+        </div>
+      </div>
+    </body>
+  </body>
+  <script>
+    let currentSpeech;
+  
+  function speak(text, delay) {
+      // 이전 음성 출력이 있으면 중지
+      if (currentSpeech) {
+          currentSpeech.onend = null; // 현재 진행 중인 음성 출력의 onend 이벤트 해제
+          window.speechSynthesis.cancel(); // 현재 음성 출력 취소
+      }
+  
+      const speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+  
+      setTimeout(function() {
+          currentSpeech = speech;
+          window.speechSynthesis.speak(speech);
+  
+          // 음성 출력이 끝나면 currentSpeech 변수를 null로 설정
+          speech.onend = function() {
+              currentSpeech = null;
+          };
+      }, delay);
+  }
+  
+  // 페이지 로드 후 자동으로 실행하려면 다음 코드를 추가합니다.
+  window.onload = function() {
+      // "안녕하세요"를 먼저 2초 후에 재생
+      speak("안녕하세요", 0);
+  
+      setTimeout(function () {
+          speak("매장에서 식사하시려면 왼쪽을, 포장하시려면 오른쪽을 클릭해주세요", 0);
+        }, 2000); // Wait 4 seconds before the next part
+  
+  }
+  
+  // 페이지를 떠날 때 음성 출력 중지
+  window.onbeforeunload = function() {
+      if (currentSpeech) {
+          window.speechSynthesis.cancel(); // 현재 음성 출력 취소
+      }
+  }
+  
+    </script>
+</html>

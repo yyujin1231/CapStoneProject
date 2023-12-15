@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/wheelchildstart.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="topcontainer">
+      <!-- <iframe width="100%" height="500" src="https://www.youtube.com/embed/syBo0IjgJlM?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+      <img class="topimg" src="/static/tiniping.jpg" />
+    </div>
+    <div class="backgroundcontainer">
+    <div class="container">
+      <div class="kiosk">이노덕키</div>
+      <div class="explain">먹는 방법을 선택해봐요!</div>
+    </div>
+    <div class="subcontainer">
+      <button class="box1" onclick="window.location.href='/wheelchild'"><img class="realimg" src="/static/childin.png" /><span>먹고가기</span></button>
+      <button class="box2" onclick="window.location.href='/wheelchild'"><img class="realimg" src="/static/childout.png" /><span>포장하기</span></button>
+    </div>
+  </div>
+    <div class="finalcontainer">
+        <div class="selectbox">
+        <button class="select" onclick="window.location.href='/'">기본</button>
+        <button class="select" onclick="window.location.href='/elderstart'">노년층</button>
+        <button class="select" onclick="window.location.href='/childstart'">어린이</button>
+        <button class="select" onclick="window.location.href='/wheelstart'">휠체어 탑승자</button>
+        <button class="select" onclick="window.location.href='/wheelelderstart'">노년층 휠체어 탑승자</button>
+        <button class="select" id="changechildwheelbutton" onclick="window.location.href='/wheelchildstart'">어린이 휠체어 탑승자</button>
+        <button class="select" onclick="window.location.href='/canestart'">시각장애인</button>
+        <button class="select" onclick="window.location.href='/caneelderstart'">노년층 시각 장애인</button>
+        <button class="select" onclick="window.location.href='/canechildstart'">어린이 시각 장애인</button>
+        </div>
+      </div>
+    </body>
+  </body>
+</html>

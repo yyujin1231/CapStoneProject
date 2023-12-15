@@ -1,0 +1,86 @@
+@font-face {
+  font-family: "배민도현";
+  src: url(BMDOHYEON_ttf.ttf);
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  font-family: "배민도현";
+}
+
+.container {
+  /* width:800px;
+      height:1280px;  */
+  display: flex;
+  flex-direction: column;
+}
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  width: 100%;
+}
+.chooseBox {
+  width: 370px;
+  height: 500px;
+  margin: 10px;
+  background-color: white;
+  border: 2px solid white;
+  font-size: 40px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+}
+.boxText {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 50px;
+  color: black;
+  font-weight: bold;
+}
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin-left: 10%;
+}
+.imgStyle {
+  width: 50%;
+  height: 50%;
+  margin-top: 20px;
+  margin-left: 60px;
+}
+.leftbtn {
+  width: 350px;
+  height: 70px;
+  margin-left: 3%;
+  margin-top: 5%;
+  font-size: 30px;
+  border-radius: 15px;
+  border: #fdd334 solid 5px;
+  background-color: #fdd334;
+  font-weight: bold;
+  font-family: "배민도현";
+}
+.rightbtn {
+  width: 350px;
+  height: 70px;
+  margin-left: 3%;
+  margin-top: 5%;
+  font-size: 30px;
+  border-radius: 15px;
+  border: #fdd334 solid 5px;
+  background-color: #fdd334;
+  font-weight: bold;
+  font-family: "배민도현";
+}
+.topImg {
+  width: 25%;
+  margin-top: 100px;
+  margin-left: 60px;
+}
+.topImg img {
+  margin-left: 115%;
+}

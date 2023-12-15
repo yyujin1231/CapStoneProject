@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/kioskstart.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="kiosk">Inno Dukki</div>
+      <div class="explain">:Innovation Duksung Kiosk</div>
+      <div class="kioskexplain">
+        이노덕키는 AI를 기반으로 사용자에 따라 <br />
+        맞춤형 인터페이스 디자인을 제공하는 스마트 키오스크입니다.
+      </div>
+    </div>
+    <div class="subcontainer">
+      <button class="box" onclick="window.location.href='/mainpage'">
+        <img class="realimg" src="/static/meal.png" /><span>매장식사</span>
+      </button>
+      <button class="box" onclick="window.location.href='/mainpage'">
+        <img class="realimg" src="/static/shoppingbag.png" /><span
+          >포장하기</span
+        >
+      </button>
+    </div>
+    <div class="finalcontainer">
+      <div class="finalment">사용자에 따른 이용 방식을 지정할 수 있어요!</div>
+      <div class="selectbox">
+        <button
+          id="changepersonbutton"
+          class="select"
+          onclick="window.location.href='/second'"
+        >
+          기본
+        </button>
+        <button
+          id="changeelderbutton"
+          class="select"
+          onclick="window.location.href='/elderstart'"
+        >
+          노년층
+        </button>
+        <button
+          id="changechildbutton"
+          class="select"
+          onclick="window.location.href='/childstart'"
+        >
+          어린이
+        </button>
+        <button
+          id="changewheelbutton"
+          class="select"
+          onclick="window.location.href='/wheelstart'"
+        >
+          휠체어 탑승자
+        </button>
+        <button
+          id="changeelderwheelbutton"
+          class="select"
+          onclick="window.location.href='/wheelelderstart'"
+        >
+          노년층 휠체어 탑승자
+        </button>
+        <button
+          id="changechildwheelbutton"
+          class="select"
+          onclick="window.location.href='/wheelchildstart'"
+        >
+          어린이 휠체어 탑승자
+        </button>
+        <button
+          id="changecanebutton"
+          class="select"
+          onclick="window.location.href='/canestart'"
+        >
+          시각장애인
+        </button>
+        <button
+          id="changeeldercanebutton"
+          class="select"
+          onclick="window.location.href='/caneelderstart'"
+        >
+          노년층 시각 장애인
+        </button>
+        <button
+          id="changechildcanebutton"
+          class="select"
+          onclick="window.location.href='/canechildstart'"
+        >
+          어린이 시각 장애인
+        </button>
+      </div>
+    </div>
+  </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+   
+var count = 0;  
+var maxCount = 2;
+var time;
+
+function updateMediapipeResult() {
+  $.getJSON('/mediapiperesult', function(data) {
+    var result = data.result;
+    if (result == "wheelelder") {
+      $('#changeelderwheelbutton').click();
+      count++;
+   
+    }
+    else if (result == "wheel") {
+      $('#changewheelbutton').click();
+      count++;    
+    }  
+    else if (result == "wheelchild") {
+      $('#changechildwheelbutton').click();
+      count++;
+   
+    }
+    else if (result == "caneadult") {
+      $('#changecanebutton').click();
+      count++;
+   
+    }
+    else if (result == "elder") {
+      $('#changeelderbutton').click();
+      count++;
+   
+    }
+
+    else if (result == "adult") {
+      $('#changepersonbutton').click();
+      count++;
+   
+    }
+
+    else if (result == "child") {
+      $('#changechildbutton').click();
+      count++;
+
+    }
+    else if (result == "caneelder") {
+      $('#changeeldercanebutton').click();
+      count++;
+   
+    }
+    else if (result == "canechild") {
+      $('#changechildcanebutton').click();
+      count++;
+   
+    }
+
+  });
+
+
+
+  if (count >= maxCount) {
+     clearInterval(time);  
+   }
+
+
+}
+ if (window.location.pathname !== '/start') {
+   time = setInterval(updateMediapipeResult, 500);
+ }
+
+
+</script>
+</html>
+</html>
